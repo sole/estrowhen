@@ -9,11 +9,17 @@
     <link type="text/css" rel="stylesheet" href="css/main.css">
     <script type="text/javascript" src="js/lib/x-tag-components.js"></script>
     <script type="text/javascript" src="js/lib/calendar.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
   </head>
   <body>
     <header>
       Estrowhen
     </header>
-    <x-calendar></x-calendar>
+    <x-calendar controls></x-calendar>
+    <div>
+      <header>Selected Date: <span id="custom-events-date">None</span></header>
+      <textarea id="custom-events-info"></textarea>
+      <button id="custom-events-save">Update info</button>
+    </div>
   </body>
 </html>
