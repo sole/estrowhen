@@ -4,9 +4,14 @@ define(['jquery', 'base/calendar'],
 
   var wrapper = $('#wrapper');
   var ul = $('#calendar');
-  var buttons = '';
+  var buttons = '<div class="options">';
 
-  var buttonObj = [
+  var periodObj = [
+    {
+      type: 'period',
+      css: 'period spotting',
+      name: 'spotting'
+    },
     {
       type: 'period',
       css: 'period light',
@@ -21,7 +26,10 @@ define(['jquery', 'base/calendar'],
       type: 'period',
       css: 'period heavy',
       name: 'heavy'
-    },
+    }
+  ];
+
+  var symptomObj = [
     {
       type: 'symptom',
       css: 'symptom bloated',
@@ -34,20 +42,26 @@ define(['jquery', 'base/calendar'],
     },
     {
       type: 'symptom',
-      css: 'symptom bloated',
-      name: 'bloated'
+      css: 'symptom headache',
+      name: 'headache'
+    },
+    {
+      type: 'symptom',
+      css: 'symptom tired',
+      name: 'tired'
     }
   ];
 
-  for (var i = 0; i < buttonObj.length; i ++) {
-    var clearCSS = '';
+  for (var i = 0; i < periodObj.length; i ++) {
+    buttons += '<button class="hidden ' + periodObj[i].css +
+               '" data-action="tag">' + periodObj[i].name + '</button>';
+  }
 
-    if (i % 3 === 0) {
-      clearCSS = 'clear ';
-    }
+  buttons += '</div>';
 
-    buttons += '<button class="hidden ' + clearCSS + buttonObj[i].css +
-               '" data-action="tag">' + buttonObj[i].name + '</button>';
+  for (var i = 0; i < symptomObj.length; i ++) {
+    buttons += '<button class="hidden ' + symptomObj[i].css +
+               '" data-action="tag">' + symptomObj[i].name + '</button>';
   }
 
   for (var i = 1; i < calendar.daysInMonth + 1; i ++) {
@@ -57,7 +71,10 @@ define(['jquery', 'base/calendar'],
       currClass = 'today';
     }
 
-    ul.append($('<li class="' + currClass + '">' + i + buttons + '</li>'));
+    var dateName = '<span>' + calendar.getDateFull(i) + '</span>';
+
+    ul.append($('<li class="' + currClass + '">' + dateName +
+              buttons + '</li>'));
   }
 
   ul.on('touchstart click', 'li', function (ev) {
