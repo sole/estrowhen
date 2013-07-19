@@ -70,9 +70,36 @@ body {
 }
 
 button {
-  border: 0;
+  border: 2px solid #eee;
+  border-radius: 3px;
+  font-size: 1.1rem;
+  margin: 0.2rem;
   padding: 0.5rem;
   width: 7rem;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+button:focus {
+  border: 2px solid #fff119;
+}
+
+.period.light {
+  background-color: rgba(236, 14, 45, 0.4);
+}
+
+.period.medium {
+  background-color: rgba(236, 14, 45, 0.7);
+}
+
+.period.heavy {
+  background-color: rgba(236, 14, 45, 1.0);
+}
+
+.symptom {
+  background-color: #8cffeb;
 }
 
 .hidden {

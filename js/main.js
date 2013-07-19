@@ -9,17 +9,17 @@ define(['jquery', 'base/calendar'],
   var buttonObj = [
     {
       type: 'period',
-      css: 'period light red',
+      css: 'period light',
       name: 'light'
     },
     {
       type: 'period',
-      css: 'period medium red',
+      css: 'period medium',
       name: 'medium'
     },
     {
       type: 'period',
-      css: 'period dark red',
+      css: 'period heavy',
       name: 'heavy'
     },
     {
@@ -40,7 +40,13 @@ define(['jquery', 'base/calendar'],
   ];
 
   for (var i = 0; i < buttonObj.length; i ++) {
-    buttons += '<button class="hidden ' + buttonObj[i].css +
+    var clearCSS = '';
+
+    if (i % 3 === 0) {
+      clearCSS = 'clear ';
+    }
+
+    buttons += '<button class="hidden ' + clearCSS + buttonObj[i].css +
                '" data-action="tag">' + buttonObj[i].name + '</button>';
   }
 
