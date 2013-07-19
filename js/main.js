@@ -4,7 +4,7 @@ define(['jquery', 'base/calendar'],
 
   var wrapper = $('#wrapper');
   var ul = $('#calendar');
-  var buttons = '<div class="options">';
+  var buttons = '<div class="options hidden">';
 
   var periodObj = [
     {
@@ -53,16 +53,18 @@ define(['jquery', 'base/calendar'],
   ];
 
   for (var i = 0; i < periodObj.length; i ++) {
-    buttons += '<button class="hidden ' + periodObj[i].css +
+    buttons += '<button class="' + periodObj[i].css +
                '" data-action="tag">' + periodObj[i].name + '</button>';
   }
 
-  buttons += '</div>';
+  buttons += '</div><div class="options hidden">';
 
   for (var i = 0; i < symptomObj.length; i ++) {
-    buttons += '<button class="hidden ' + symptomObj[i].css +
+    buttons += '<button class="' + symptomObj[i].css +
                '" data-action="tag">' + symptomObj[i].name + '</button>';
   }
+
+  buttons += '</div>';
 
   for (var i = 1; i < calendar.daysInMonth + 1; i ++) {
     var currClass = '';
@@ -78,7 +80,7 @@ define(['jquery', 'base/calendar'],
   }
 
   ul.on('touchstart click', 'li', function (ev) {
-    $('button').addClass('hidden');
-    $(this).find('button').removeClass('hidden');
+    $('.options').addClass('hidden');
+    $(this).find('.options').removeClass('hidden');
   });
 });
