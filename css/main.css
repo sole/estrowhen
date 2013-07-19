@@ -66,22 +66,13 @@ body {
 }
 
 #calendar li.today {
-  background-color: #9bfff0;
+  background-color: #d1e7ec;
 }
 
-textarea {
-  background-color: #eee;
+button {
   border: 0;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 1.3rem;
-  height: 4.5rem;
-  margin-top: 0.5rem;
-  resize: none;
-  width: 100%;
-}
-
-#calendar li.today textarea {
-  background-color: #fff;
+  padding: 0.5rem;
+  width: 7rem;
 }
 
 .hidden {
