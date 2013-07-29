@@ -66,13 +66,13 @@ body {
   position: relative;
 }
 
-#calendar li.today {
-  background-color: #d1e7ec;
+#calendar li span {
+  color: #888;
+  display: block;
 }
 
-#calendar li span {
-  color: #555;
-  display: block;
+#calendar li.today span {
+  color: #37ddfb;
 }
 
 .options {
