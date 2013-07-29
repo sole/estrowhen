@@ -17,4 +17,10 @@ define(['jquery', 'base/calendar', 'base/scheduler'],
 
     scheduler.setPeriod(self);
   });
+
+  ul.on('touchstart click', '.symptom', function (ev) {
+    var self = $(ev.target);
+
+    scheduler.setSymptom(self);
+  });
 });

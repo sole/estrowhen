@@ -54,7 +54,7 @@ body {
 }
 
 #wrapper {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   position: relative;
   width: 100%;
 }
@@ -81,7 +81,7 @@ body {
 }
 
 button {
-  border: 0;
+  border: 2px solid transparent;
   border-radius: 1px;
   font-size: 1.1rem;
   margin: 0.1rem;
@@ -89,12 +89,8 @@ button {
   width: 7.4rem;
 }
 
-button:hover {
-  opacity: 0.7;
-}
-
-button:focus {
-  border: 2px solid #fff119;
+button:hover, .active {
+  opacity: 0.9;
 }
 
 .period {
@@ -106,14 +102,18 @@ button:focus {
   color: #194861;
 }
 
+.symptom.active {
+  border: 2px solid #33808e;
+}
+
 .marker {
   background-color: #f1f1f1;
   border-radius: 3rem;
-  height: 2rem;
+  height: 1.9rem;
   position: absolute;
   right: 1rem;
   top: 0.5rem;
-  width: 2rem;
+  width: 1.9rem;
 }
 
 .marker.green {
@@ -122,6 +122,18 @@ button:focus {
 
 .spotting {
   background-color: rgba(236, 14, 45, 0.1);
+}
+
+.spotting.active, .light.active {
+  border: 2px solid #de2929;
+}
+
+.medium.active, .heavy.active {
+  border: 2px solid #881414;
+}
+
+.spotting.active {
+  background-color: rgba(236, 14, 45, 0.3);
 }
 
 .light {
@@ -133,7 +145,8 @@ button:focus {
 }
 
 .heavy {
-  background-color: rgba(236, 14, 45, 1.0);
+  background-color: rgba(236, 14, 45, 0.9);
+  color: #111;
 }
 
 .hidden {

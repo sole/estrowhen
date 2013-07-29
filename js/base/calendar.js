@@ -42,6 +42,7 @@ define(['jquery', 'base/mData', 'base/scheduler', 'moment'],
                colour + '"></div></li>');
 
       scheduler.hasPeriod(li);
+      scheduler.hasSymptom(li);
 
       ul.append(li);
     }
