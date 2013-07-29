@@ -1,5 +1,5 @@
-define(['jquery', 'base/mData', 'moment'],
-  function ($, mdata) {
+define(['jquery', 'base/mData', 'base/scheduler', 'moment'],
+  function ($, mdata, scheduler) {
   'use strict';
 
   var ul = $('#calendar');
@@ -11,15 +11,17 @@ define(['jquery', 'base/mData', 'moment'],
   var buttons = '<div class="options hidden">';
 
   for (var i = 0; i < mdata.period.length; i ++) {
-    buttons += '<button class="' + mdata.period[i].css +
-               '" data-action="tag">' + mdata.period[i].name + '</button>';
+    buttons += '<button data-type="' + mdata.period[i].name + '" class="' +
+               mdata.period[i].css + '">' +
+               mdata.period[i].name + '</button>';
   }
 
   buttons += '</div><div class="options hidden">';
 
   for (var i = 0; i < mdata.symptoms.length; i ++) {
-    buttons += '<button class="' + mdata.symptoms[i].css +
-               '" data-action="tag">' + mdata.symptoms[i].name + '</button>';
+    buttons += '<button data-type="' + mdata.symptoms[i].name + '" class="' +
+               mdata.symptoms[i].css + '">' +
+               mdata.symptoms[i].name + '</button>';
   }
 
   buttons += '</div>';
@@ -35,8 +37,13 @@ define(['jquery', 'base/mData', 'moment'],
 
       var dateName = '<span>' + getDateFull(i) + '</span>';
 
-      ul.append($('<li class="' + currClass + '">' + dateName +
-                buttons + '<div class="marker ' + colour + '"></div></li>'));
+      var li = $('<li id="date-' + i + '" class="' +
+               currClass + '">' + dateName + buttons + '<div class="marker ' +
+               colour + '"></div></li>');
+
+      scheduler.hasPeriod(li);
+
+      ul.append(li);
     }
   };
 

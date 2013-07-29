@@ -1,5 +1,5 @@
-define(['jquery', 'base/calendar'],
-  function ($, calendar) {
+define(['jquery', 'base/calendar', 'base/scheduler'],
+  function ($, calendar, scheduler) {
   'use strict';
 
   var wrapper = $('#wrapper');
@@ -10,5 +10,11 @@ define(['jquery', 'base/calendar'],
   ul.on('touchstart click', 'li', function (ev) {
     $('.options').addClass('hidden');
     $(this).find('.options').removeClass('hidden');
+  });
+
+  ul.on('touchstart click', '.period', function (ev) {
+    var self = $(ev.target);
+
+    scheduler.setPeriod(self);
   });
 });

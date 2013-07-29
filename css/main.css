@@ -101,22 +101,6 @@ button:focus {
   color: #370909;
 }
 
-.period.spotting {
-  background-color: rgba(236, 14, 45, 0.1);
-}
-
-.period.light {
-  background-color: rgba(236, 14, 45, 0.4);
-}
-
-.period.medium {
-  background-color: rgba(236, 14, 45, 0.7);
-}
-
-.period.heavy {
-  background-color: rgba(236, 14, 45, 1.0);
-}
-
 .symptom {
   background-color: #65dbf0;
   color: #194861;
@@ -132,12 +116,24 @@ button:focus {
   width: 2rem;
 }
 
-.marker.red {
-  background-color: #ea3e3e;
-}
-
 .marker.green {
   background-color: #43cf64;
+}
+
+.spotting {
+  background-color: rgba(236, 14, 45, 0.1);
+}
+
+.light {
+  background-color: rgba(236, 14, 45, 0.4);
+}
+
+.medium {
+  background-color: rgba(236, 14, 45, 0.7);
+}
+
+.heavy {
+  background-color: rgba(236, 14, 45, 1.0);
 }
 
 .hidden {
