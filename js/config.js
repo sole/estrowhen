@@ -2,7 +2,8 @@ requirejs.config({
   deps: ['main'],
   paths: {
     'jquery': 'lib/jquery',
-    'moment': 'lib/moment'
+    'moment': 'lib/moment',
+    'asyncStorage': 'lib/asyncStorage'
   },
   shim: {
     'jquery': {
@@ -10,6 +11,9 @@ requirejs.config({
     },
     'moment': {
       exports: 'moment'
+    },
+    'asyncStorage': {
+      exports: 'asyncStorage'
     }
   }
 });
