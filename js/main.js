@@ -22,6 +22,7 @@ define(['jquery', 'base/mData', 'base/calendar'],
 
   for (var i = 1; i < calendar.daysInMonth + 1; i ++) {
     var currClass = '';
+    var colour = '';
 
     if (i === calendar.currentDay) {
       currClass = 'today';
@@ -30,7 +31,7 @@ define(['jquery', 'base/mData', 'base/calendar'],
     var dateName = '<span>' + calendar.getDateFull(i) + '</span>';
 
     ul.append($('<li class="' + currClass + '">' + dateName +
-              buttons + '</li>'));
+              buttons + '<div class="marker ' + colour + '"></div></li>'));
   }
 
   ul.on('touchstart click', 'li', function (ev) {
