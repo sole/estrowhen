@@ -1,6 +1,8 @@
-define(['jquery', 'base/mData', 'base/scheduler', 'moment'],
-  function ($, mdata, scheduler) {
+define(['jquery', 'base/mData', 'base/Scheduler', 'moment'],
+  function ($, mdata, Scheduler) {
   'use strict';
+
+  var scheduler = new Scheduler();
 
   var ul = $('#calendar');
 

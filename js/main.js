@@ -1,7 +1,8 @@
-define(['jquery', 'base/calendar', 'base/scheduler'],
-  function ($, calendar, scheduler) {
+define(['jquery', 'base/calendar', 'base/Scheduler'],
+  function ($, calendar, Scheduler) {
   'use strict';
 
+  var scheduler = new Scheduler();
   var wrapper = $('#wrapper');
   var ul = $('#calendar');
 

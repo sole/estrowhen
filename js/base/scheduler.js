@@ -2,8 +2,10 @@ define(['asyncStorage'],
   function (asyncStorage) {
   'use strict';
 
-  var self = {
-    hasPeriod: function (li) {
+  var Scheduler = function () {
+    this.earliestDate = '';
+
+    this.hasPeriod = function (li) {
       asyncStorage.getItem('period:' + li[0].id, function (marker) {
         if (marker) {
           li.find('.marker').addClass(marker);
@@ -13,8 +15,9 @@ define(['asyncStorage'],
           li.find('button.' + marker).removeClass('active');
         }
       });
-    },
-    hasSymptom: function (li) {
+    };
+
+    this.hasSymptom = function (li) {
       var symptomEl = li.find('button.symptom');
 
       asyncStorage.getItem('symptoms:' + li[0].id, function (symptoms) {
@@ -26,8 +29,9 @@ define(['asyncStorage'],
           }
         }
       });
-    },
-    setPeriod: function (button) {
+    };
+
+    this.setPeriod = function (button) {
       var isActive = button.hasClass('active');
       var marker = button.closest('li').find('.marker');
       var period = button.data('type');
@@ -46,8 +50,9 @@ define(['asyncStorage'],
         asyncStorage.setItem('period:' + id,
           button.data('type'));
       }
-    },
-    setSymptom: function (button) {
+    };
+
+    this.setSymptom = function (button) {
       var isActive = button.hasClass('active');
       var id = button.closest('li')[0].id;
 
@@ -79,8 +84,8 @@ define(['asyncStorage'],
           console.log('saved symptoms ', symptoms)
         });
       });
-    }
+    };
   };
 
-  return self;
+  return Scheduler;
 });
