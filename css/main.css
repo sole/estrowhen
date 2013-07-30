@@ -61,6 +61,7 @@ body {
 
 #calendar li {
   background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
   margin: 0.2rem 0;
   padding: 0.8rem 1rem;
   position: relative;
@@ -84,9 +85,9 @@ button {
   border: 2px solid transparent;
   border-radius: 1px;
   font-size: 1.1rem;
-  margin: 0.1rem;
+  margin: 0.08rem;
   padding: 0.6rem;
-  width: 7.4rem;
+  width: 7.58rem;
 }
 
 button:hover, .active {
@@ -98,8 +99,23 @@ button:hover, .active {
 }
 
 .symptom {
-  background-color: #65dbf0;
   color: #194861;
+}
+
+.symptom.bloated {
+  background-color: rgba(101, 219, 240, 0.3);
+}
+
+.symptom.cramps {
+  background-color: rgba(101, 219, 240, 0.5);
+}
+
+.symptom.headache {
+  background-color: rgba(101, 219, 240, 0.8);
+}
+
+.symptom.tired {
+  background-color: rgba(101, 219, 240, 0.9);
 }
 
 .symptom.active {

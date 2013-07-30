@@ -31,6 +31,7 @@ define(['asyncStorage'],
       var isActive = button.hasClass('active');
       var marker = button.closest('li').find('.marker');
       var period = button.data('type');
+      var id = button.closest('li')[0].id;
 
       marker.removeClass('spotting light medium heavy');
       button.siblings().removeClass('active');
@@ -38,16 +39,17 @@ define(['asyncStorage'],
       if (isActive) {
         button.removeClass('active');
         isActive = false;
-        asyncStorage.removeItem('period:' + button.closest('li')[0].id);
+        asyncStorage.removeItem('period:' + id);
       } else {
         button.addClass('active');
         marker.addClass(period);
-        asyncStorage.setItem('period:' + button.closest('li')[0].id,
+        asyncStorage.setItem('period:' + id,
           button.data('type'));
       }
     },
     setSymptom: function (button) {
       var isActive = button.hasClass('active');
+      var id = button.closest('li')[0].id;
 
       if (isActive) {
         button.removeClass('active');
@@ -57,7 +59,7 @@ define(['asyncStorage'],
         isActive = true;
       }
 
-      asyncStorage.getItem('symptoms:' + button.closest('li')[0].id,
+      asyncStorage.getItem('symptoms:' + id,
         function (symptoms) {
 
         var symptom = button.data('type');
@@ -72,7 +74,7 @@ define(['asyncStorage'],
           symptoms.splice(symptoms.indexOf(symptom), 1);
         }
 
-        asyncStorage.setItem('symptoms:' + button.closest('li')[0].id, symptoms,
+        asyncStorage.setItem('symptoms:' + id, symptoms,
           function () {
           console.log('saved symptoms ', symptoms)
         });
