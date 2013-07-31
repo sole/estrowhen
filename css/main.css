@@ -125,11 +125,11 @@ button:hover, .active, .active:hover {
 .marker {
   background-color: #f1f1f1;
   border-radius: 3rem;
-  height: 1.9rem;
+  height: 1.6rem;
   position: absolute;
   right: 1rem;
   top: 0.5rem;
-  width: 1.9rem;
+  width: 1.6rem;
 }
 
 .marker.green {
@@ -138,6 +138,7 @@ button:hover, .active, .active:hover {
 
 .spotting {
   background-color: rgba(236, 14, 45, 0.1);
+  border: 2px solid rgba(236, 14, 45, 0.1);
 }
 
 .spotting.active, .light.active {
@@ -154,15 +155,22 @@ button:hover, .active, .active:hover {
 
 .light {
   background-color: rgba(236, 14, 45, 0.4);
+  border: 2px solid rgba(236, 14, 45, 0.4);
 }
 
 .medium {
   background-color: rgba(236, 14, 45, 0.7);
+  border: 2px solid rgba(236, 14, 45, 0.7);
 }
 
 .heavy {
   background-color: rgba(236, 14, 45, 0.9);
+  border: 2px solid rgba(236, 14, 45, 0.9);
   color: #111;
+}
+
+.predict {
+  border: 2px solid rgba(236, 14, 45, 0.9);
 }
 
 .hidden {
