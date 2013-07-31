@@ -8,27 +8,6 @@ define(['jquery', 'asyncStorage', 'moment'],
     var ul = $('#calendar');
 
     this.nextDate = '';
-    this.prevDate = '';
-
-    var setAvg = function (avg, days, year, month, day) {
-      var currAvg = 0;
-
-      // Remove the oldest month
-      if (days.length > 3) {
-        days.slice(0, 1);
-      }
-
-      avg.dayCount = avg.days.length;
-
-      for (var i = 0; i < days.length; i ++) {
-        currAvg += days[i];
-      }
-
-      avg.days = days;
-      avg.currAvg = Math.floor(currAvg / avg.dayCount) || 28;
-
-      updateAverages(avg, year, month, day);
-    };
 
     var updateAverages = function (avg, year, month, day) {
       month = parseInt(month, 10);
@@ -40,16 +19,29 @@ define(['jquery', 'asyncStorage', 'moment'],
       asyncStorage.setItem('averages', avg);
     };
 
-    var setStart = function (avg, days, year, month, day) {
+    var setAvg = function (avg, year, month, day) {
+      var currAvg = 0;
+
+      avg.dayCount = avg.days.length;
+
+      for (var i = 0; i < avg.days.length - 1; i ++) {
+        currAvg += avg.days[i];
+      }
+
+      avg.currAvg = Math.floor(currAvg / avg.dayCount) || 28;
+
+      updateAverages(avg, year, month, day);
+    };
+
+    var setStart = function (avg, year, month, day) {
       asyncStorage.setItem('start', {
         year: year,
         month: month,
         day: day
       });
 
-      days = avg.days.push(28);
-
-      setAvg(avg, days, year, month, day);
+      avg.days.push(28);
+      setAvg(avg, year, month, day);
     }
 
     var setAverage = function (year, month, day) {
@@ -59,8 +51,6 @@ define(['jquery', 'asyncStorage', 'moment'],
 
       asyncStorage.getItem('averages', function (avg) {
         if (avg) {
-          var days = [];
-
           if (typeof avg.days !== 'object') {
             avg.days = [];
           }
@@ -71,20 +61,25 @@ define(['jquery', 'asyncStorage', 'moment'],
                 var lastDate = moment([d.year, d.month, d.day]);
                 var currDate = moment([year, month, day]);
 
-                days = avg.days.push(lastDate.diff(currDate));
+                if (lastDate.toString() !== currDate.toString()) {
+                  avg.days.push(lastDate.diff(currDate));
+                }
 
                 asyncStorage.setItem('start', {
                   year: year,
                   month: month,
                   day: day
                 });
+
+                setAvg(avg, year, month, day);
+
               } else {
-                setStart(avg, days, year, month, day);
+                setStart(avg, year, month, day);
               }
             });
 
           } else {
-            setStart(avg, days, year, month, day);
+            setStart(avg, year, month, day);
           }
 
         } else {
@@ -113,7 +108,7 @@ define(['jquery', 'asyncStorage', 'moment'],
 
           li.find('.marker').addClass(marker);
           li.find('button.' + marker).addClass('active');
-          firstDay = true;
+
         } else {
           li.find('.marker').removeClass(marker);
           li.find('button.' + marker).removeClass('active');
@@ -185,7 +180,7 @@ define(['jquery', 'asyncStorage', 'moment'],
 
         asyncStorage.setItem('symptoms:' + id, symptoms,
           function () {
-          console.log('saved symptoms ', symptoms)
+          console.log('saved symptoms ', symptoms);
         });
       });
     };
