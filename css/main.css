@@ -90,7 +90,7 @@ button {
   width: 7.58rem;
 }
 
-button:hover, .active {
+button:hover, .active, .active:hover {
   opacity: 0.9;
 }
 

@@ -31,7 +31,6 @@ define(['jquery', 'base/mData', 'base/Scheduler', 'moment'],
   var drawMonth = function drawMonth(month) {
     for (var i = 1; i < month + 1; i ++) {
       var currClass = '';
-      var colour = '';
 
       if (i === currentDay) {
         currClass = 'today';
@@ -39,9 +38,11 @@ define(['jquery', 'base/mData', 'base/Scheduler', 'moment'],
 
       var dateName = '<span>' + getDateFull(i) + '</span>';
 
-      var li = $('<li id="date-' + i + '" class="' +
-               currClass + '">' + dateName + buttons + '<div class="marker ' +
-               colour + '"></div></li>');
+      var idDate = moment([currentYear, currentMonth, i - 1]);
+
+      var li = $('<li id="date-' + idDate.year() + '-' + idDate.month() +
+               '-' + idDate.date() + '" class="' + currClass + '">' +
+               dateName + buttons + '<div class="marker"></div></li>');
 
       scheduler.hasPeriod(li);
       scheduler.hasSymptom(li);
@@ -57,7 +58,7 @@ define(['jquery', 'base/mData', 'base/Scheduler', 'moment'],
 
   return {
     drawMonths: function drawMonths() {
-      drawMonth(moment().daysInMonth() + 60);
+      drawMonth(moment().daysInMonth() + 31);
     }
   };
 });
