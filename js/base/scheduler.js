@@ -4,6 +4,7 @@ define(['jquery', 'asyncStorage', 'moment'],
 
   var Scheduler = function () {
     var self = this;
+    var firstDay = false;
 
     var ul = $('#calendar');
 
@@ -34,12 +35,6 @@ define(['jquery', 'asyncStorage', 'moment'],
     };
 
     var setStart = function (avg, year, month, day) {
-      asyncStorage.setItem('start', {
-        year: year,
-        month: month,
-        day: day
-      });
-
       avg.days.push(28);
       setAvg(avg, year, month, day);
     }
@@ -56,28 +51,7 @@ define(['jquery', 'asyncStorage', 'moment'],
           }
 
           if (avg.dayCount > 0) {
-            asyncStorage.getItem('start', function (d) {
-              if (d) {
-                var lastDate = moment([d.year, d.month, d.day]);
-                var currDate = moment([year, month, day]);
-
-                if (lastDate.toString() !== currDate.toString()) {
-                  avg.days.push(lastDate.diff(currDate));
-                }
-
-                asyncStorage.setItem('start', {
-                  year: year,
-                  month: month,
-                  day: day
-                });
-
-                setAvg(avg, year, month, day);
-
-              } else {
-                setStart(avg, year, month, day);
-              }
-            });
-
+            setAvg(avg, year, month, day);
           } else {
             setStart(avg, year, month, day);
           }
@@ -95,13 +69,11 @@ define(['jquery', 'asyncStorage', 'moment'],
     };
 
     this.hasPeriod = function (li) {
-      var firstDay = false;
-
       asyncStorage.getItem('period:' + li[0].id, function (marker) {
         if (marker) {
           if (!firstDay) {
             var date = li[0].id.split('-');
-
+            console.log('first day!')
             setAverage(date[1], date[2], date[3]);
             firstDay = true;
           }

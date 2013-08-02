@@ -28,18 +28,20 @@ define(['jquery', 'base/mData', 'base/Scheduler', 'moment'],
 
   buttons += '</div>';
 
-  var drawMonth = function drawMonth(month) {
-    for (var i = 1; i < month + 1; i ++) {
+  var getDateFull = function getDateFull(year, month, day) {
+    return moment(year + ' ' + month + ' ' + day).format('dddd, MMMM D');
+  };
+
+  var drawDays = function (month, isCurrent) {
+    for (var i = 1; i < month.daysInMonth() + 1; i ++) {
       var currClass = '';
 
-      if (i === currentDay) {
+      if (isCurrent && i === currentDay) {
         currClass = 'today';
       }
 
-      var dateName = '<span>' + getDateFull(i) + '</span>';
-
-      var idDate = moment([currentYear, currentMonth, i - 1]);
-
+      var dateName = '<span>' + getDateFull(month.year(), month.month() + 1, i) + '</span>';
+      var idDate = moment([month.year(), month.month(), i]);
       var li = $('<li id="date-' + idDate.year() + '-' + idDate.month() +
                '-' + idDate.date() + '" class="' + currClass + '">' +
                dateName + buttons + '<div class="marker"></div></li>');
@@ -51,14 +53,19 @@ define(['jquery', 'base/mData', 'base/Scheduler', 'moment'],
     }
   };
 
-  var getDateFull = function getDateFull(day) {
-    return moment(currentYear + ' ' + currentMonth + ' ' +
-                  day).format('dddd, MMMM D');
+  var drawMonth = function drawMonth() {
+    var prevMonth = moment().subtract('month', 1);
+    var currMonth = moment();
+    var nextMonth = moment().add('month', 1);
+
+    drawDays(prevMonth, false);
+    drawDays(currMonth, true);
+    drawDays(nextMonth, false);
   };
 
   return {
     drawMonths: function drawMonths() {
-      drawMonth(moment().daysInMonth() + 31);
+      drawMonth();
     }
   };
 });
