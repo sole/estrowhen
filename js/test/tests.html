@@ -5,18 +5,31 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="lib/mocha.css" />
-    <script type="text/javascript" src="../javascripts/require.js" data-main="main.js"></script>
+    <script type="text/javascript" src="../require.js" data-main="main.js"></script>
   </head>
   <body>
     <div id="mocha"></div>
     <div id="test-content">
-      <form method="post" action="http://localhost:3000" class="hidden">
-        <textarea name="text">
-        <input type="hidden" name="timestamp">
-        <button type="submit">Add</button>
-        <a class="cancel" data-action="cancel" href="javascript:;">x</a>
-      <a id="add" data-action="add" href="javascript:;">+</a>
-      <ul class="notes"></ul>
+      <div id="wrapper">
+        <ul id="calendar">
+          <li>
+            <span>Monday, August 12</span>
+            <div class="options">
+              <button data-type="spotting" class="period spotting">spotting</button>
+              <button data-type="light" class="period light">light</button>
+              <button data-type="medium" class="period medium">medium</button>
+              <button data-type="heavy" class="period heavy">heavy</button>
+            </div>
+            <div class="options">
+              <button data-type="bloated" class="symptom bloated">bloated</button>
+              <button data-type="cramps" class="symptom cramps">cramps</button>
+              <button data-type="headache" class="symptom headache">headache</button>
+              <button data-type="tired" class="symptom tired">tired</button>
+            </div>
+            <div class="marker"></div>
+          </li>
+        </ul>
+      </div>
     </div>
   </body>
 </html>

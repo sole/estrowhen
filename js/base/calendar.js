@@ -1,4 +1,4 @@
-define(['jquery', 'base/mData', 'base/Scheduler', 'moment'],
+define(['jquery', './mData', './Scheduler', 'moment'],
   function ($, mdata, Scheduler) {
   'use strict';
 

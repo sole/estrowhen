@@ -1,8 +1,8 @@
 requirejs.config({
   paths: {
-    'jquery': '../js/lib/jquery',
-    'moment': '../js/lib/moment',
-    'asyncStorage': '../js/lib/asyncStorage'
+    'jquery': '../lib/jquery',
+    'moment': '../lib/moment',
+    'asyncStorage': '../lib/asyncStorage'
   },
   shim: {
     'jquery': {
@@ -17,7 +17,6 @@ requirejs.config({
 
 require(['require', 'lib/chai', 'lib/mocha', 'lib/sinon'],
   function (require, chai, sinon) {
-
   assert = chai.assert;
   should = chai.should();
   expect = chai.expect;
