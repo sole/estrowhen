@@ -47,5 +47,16 @@ define(['jquery', '../base/Scheduler', 'asyncStorage'],
         });
       }, 100);
     });
+
+    it('should unset symptom', function (done) {
+      s.setSymptom(buttonS);
+      expect(buttonS.hasClass('active')).to.equal(false);
+      setTimeout(function () {
+        asyncStorage.getItem('symptoms:' + id, function (d) {
+          expect(d.indexOf('tired')).to.equal(-1);
+          done();
+        });
+      }, 100);
+    });
   });
 });
