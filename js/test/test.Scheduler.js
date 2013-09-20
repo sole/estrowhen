@@ -38,12 +38,14 @@ define(['jquery', '../base/Scheduler', 'asyncStorage'],
       assert.equal(s.getPeriodAverage(), 30);
     });
 
-    /*it('should discard abnormal/extreme values', function() {
+    it('should discard abnormal/extreme/missing values', function() {
       s.addPeriod([2013, 1, 1]);
       s.addPeriod([2013, 1, 31]);
-      s.addPeriod([2013, 3, 2]);
+      s.addPeriod([2013, 4, 1]);
+      s.addPeriod([2013, 5, 1]);
+
       assert.equal(s.getPeriodAverage(), 30);
-    });*/
+    });
 
 
 

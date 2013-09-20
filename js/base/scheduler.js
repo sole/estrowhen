@@ -31,7 +31,6 @@ define(['jquery', 'asyncStorage', 'moment'],
     function getNextPeriodId() {
       
       var id = periods.reduce(function(previousValue, currentValue) {
-        console.log('buu', previousValue, currentValue);
         return Math.max(previousValue, currentValue.id);
       }, 0);
 
@@ -47,7 +46,6 @@ define(['jquery', 'asyncStorage', 'moment'],
       if(when) {
         var date = new Date(when[0], when[1] - 1, when[2]);
         timestamp = date.getTime();
-        console.log('new timestamp for', when[0], when[1] - 1, when[2], date.toDateString());
       } else {
         timestamp = Date.now();
       }
@@ -66,15 +64,12 @@ define(['jquery', 'asyncStorage', 'moment'],
 
 
     this.getPeriodAverage = function(start, end) {
-      console.log('eh');
 
       if(periods.length <= 1) {
 
         return 28;
 
       } else {
-
-        console.log('wops', periods.length);
 
         if(start === undefined) {
           start = periods[0].timestamp;
@@ -88,27 +83,38 @@ define(['jquery', 'asyncStorage', 'moment'],
           return period.timestamp >= start && period.timestamp <= end;
         });
 
-        console.log(start, end, intervalPeriods.length);
-
         var total = 0;
+        var numValidValues = 1;
         
         for(var i = 1; i < intervalPeriods.length; i++) {
           
-          console.log('loop');
-
           var a = intervalPeriods[i - 1].timestamp;
           var b = intervalPeriods[i].timestamp;
 
           var diff = (b - a) * 0.001;
           var days = Math.round(diff / (3600 * 24));
+          var avgUntilNow;
+          
+          if(numValidValues > 1) {
+            avgUntilNow = total / (numValidValues - 1);
+          } else {
+            avgUntilNow = days;
+          }
 
-          console.log(diff, 'days', days);
-
-          total += days;
+          // The "tolerance" is more than half the current average,
+          // and less than double the current average
+          // In numbers, it would mean if the current average is 30,
+          // we would deem values such as 14 (< 15 = 30 / 2) or
+          // 70 (> 60 = 30 * 2) as "extreme" and they would not influence the
+          // calculations
+          if(avgUntilNow * 0.5 < days && days < avgUntilNow * 2) {
+            total += days;
+            numValidValues++;
+          }
 
         }
 
-        return total / (intervalPeriods.length - 1);
+        return total / (numValidValues - 1);
 
       }
 
