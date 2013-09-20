@@ -2,7 +2,123 @@ define(['jquery', 'asyncStorage', 'moment'],
   function ($, asyncStorage, moment) {
   'use strict';
 
-  var Scheduler = function () {
+  var Period = function(data) {
+    for(var k in data) {
+      this[k] = data[k];
+    }
+  };
+
+
+  var Scheduler = function() {
+
+    var periods = [];
+    var symptoms = [];
+
+
+    function sortPeriods() {
+      periods.sort(function(a, b) {
+        if(a.timestamp < b.timestamp) {
+          return -1;
+        } else if(a.timestamp === b.timestamp) {
+          return 0;
+        } else {
+          return 1;
+        }
+      });
+    }
+
+
+    function getNextPeriodId() {
+      
+      var id = periods.reduce(function(previousValue, currentValue) {
+        console.log('buu', previousValue, currentValue);
+        return Math.max(previousValue, currentValue.id);
+      }, 0);
+
+      return id + 1;
+
+    }
+
+
+    this.addPeriod = function(when, id) {
+
+      var timestamp;
+      
+      if(when) {
+        var date = new Date(when[0], when[1] - 1, when[2]);
+        timestamp = date.getTime();
+        console.log('new timestamp for', when[0], when[1] - 1, when[2], date.toDateString());
+      } else {
+        timestamp = Date.now();
+      }
+
+
+      if(id === undefined) {
+        id = getNextPeriodId();
+      }
+
+      var period = new Period({ timestamp: timestamp, id: id });
+      periods.push(period);
+
+      sortPeriods();
+
+    };
+
+
+    this.getPeriodAverage = function(start, end) {
+      console.log('eh');
+
+      if(periods.length <= 1) {
+
+        return 28;
+
+      } else {
+
+        console.log('wops', periods.length);
+
+        if(start === undefined) {
+          start = periods[0].timestamp;
+        }
+
+        if(end === undefined) {
+          end = periods[ periods.length - 1 ].timestamp;
+        }
+
+        var intervalPeriods = periods.filter(function(period) {
+          return period.timestamp >= start && period.timestamp <= end;
+        });
+
+        console.log(start, end, intervalPeriods.length);
+
+        var total = 0;
+        
+        for(var i = 1; i < intervalPeriods.length; i++) {
+          
+          console.log('loop');
+
+          var a = intervalPeriods[i - 1].timestamp;
+          var b = intervalPeriods[i].timestamp;
+
+          var diff = (b - a) * 0.001;
+          var days = Math.round(diff / (3600 * 24));
+
+          console.log(diff, 'days', days);
+
+          total += days;
+
+        }
+
+        return total / (intervalPeriods.length - 1);
+
+      }
+
+    };
+
+  };
+
+  return Scheduler;
+
+  /*var Scheduler = function () {
     var self = this;
     var firstDay = false;
 
@@ -158,5 +274,5 @@ define(['jquery', 'asyncStorage', 'moment'],
     };
   };
 
-  return Scheduler;
+  return Scheduler;*/
 });
